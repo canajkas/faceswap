@@ -1,9 +1,15 @@
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+<div *ngIf="!basePhotoUploaded" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <h1>Insert Base Face Photo</h1>
-    <div 
-        style="width: 300px; height: 300px; border: 2px dashed #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+    <div (click)="triggerFileInput()" style="width: 300px; height: 300px; border: 2px dashed #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
         <span style="font-size: 48px;">+</span>
     </div>
+    <input type="file" id="fileInput" accept="image/*" (change)="handleFileInput($event)" style="display: none;">
 </div>
 
-<input type="file" id="fileInput" accept="image/*" capture="camera" style="display: none;">
+<div *ngIf="basePhotoUploaded" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+    <h1>Insert to replace video or photo</h1>
+    <div (click)="triggerFileInput()" style="width: 300px; height: 300px; border: 2px dashed #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <span style="font-size: 48px;">+</span>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" (change)="handleFileInput($event)" style="display: none;">
+</div>
