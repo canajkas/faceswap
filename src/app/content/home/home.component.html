@@ -1,15 +1,45 @@
-<div *ngIf="!basePhotoUploaded" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <h1>Insert Base Face Photo</h1>
-    <div (click)="triggerFileInput()" style="width: 300px; height: 300px; border: 2px dashed #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        <span style="font-size: 48px;">+</span>
-    </div>
-    <input type="file" id="fileInput" accept="image/*" (change)="handleFileInput($event)" style="display: none;">
-</div>
+<div class="row">
+    <div class="col-5">
+        <div class="main-container" [class.shift-left]="basePhotoUploaded && replacePhotoUploaded">
+            <div *ngIf="!basePhotoUploaded" class="container">
+                <h1 class="title pb-2">Insert Base Face Photo</h1>
+                <div (click)="triggerFileInput('fileInput1')" class="square hover-fill">
+                    <span style="font-size: 48px;">+</span>
+                </div>
+                <input type="file" id="fileInput1" accept="image/*" (change)="handleFileInput($event, 'base')" style="display: none;">
+            </div>
 
-<div *ngIf="basePhotoUploaded" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <h1>Insert to replace video or photo</h1>
-    <div (click)="triggerFileInput()" style="width: 300px; height: 300px; border: 2px dashed #ffffff; border-radius: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        <span style="font-size: 48px;">+</span>
+            <div *ngIf="basePhotoUploaded" class="container">
+                <div class="title-container">
+                    <h1 class="title">Base Face Photo</h1>
+                </div>
+                <div class="uploaded-photo-container slide-up" (click)="triggerFileInput('fileInput1')">
+                    <img [src]="uploadedPhotoUrl" class="uploaded-photo" />
+                </div>
+                <div class="delayed-appearance">
+                    <h1 class="title pb-2">Insert to replace video or photo</h1>
+                    <div *ngIf="!replacePhotoUploaded" (click)="triggerFileInput('fileInput2')" class="square hover-fill">
+                        <span style="font-size: 48px;">+</span>
+                    </div>
+                </div>
+                <input type="file" id="fileInput2" accept="image/*,video/*" (change)="handleFileInput($event, 'replace')" style="display: none;">
+                <div *ngIf="replacePhotoUploaded" class="uploaded-photo-container" (click)="triggerFileInput('fileInput2')">
+                    <img *ngIf="isImage(replacePhotoUrl)" [src]="replacePhotoUrl" class="uploaded-photo" />
+                    <video *ngIf="!isImage(replacePhotoUrl)" [src]="replacePhotoUrl" class="uploaded-photo" controls></video>
+                </div>
+            </div>
+        </div>
     </div>
-    <input type="file" id="fileInput" accept="image/*" (change)="handleFileInput($event)" style="display: none;">
+    <div class="col-2 d-flex flex-column align-items-center justify-content-center">
+        <button *ngIf="basePhotoUploaded && replacePhotoUploaded" class="swap-button btn btn-primary btn-lg fade-in" (click)="swapFaces()">Swap Faces</button>
+        <p *ngIf="facesSwapped">Loading...</p>
+    </div>
+    <div class="col-5">
+        <div *ngIf="facesSwapped" class="container text-center fade-in">
+            <h1 class="title pb-2">Result</h1>
+            <div class="square d-flex align-items-center justify-content-center">
+                <span style="font-size: 24px;">Click to view</span>
+            </div>
+        </div>
+    </div>
 </div>

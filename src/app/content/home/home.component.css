@@ -3,29 +3,150 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 80vh;
 }
 
 .square {
     width: 300px;
     height: 300px;
-    border: 2px dashed #ccc;
+    border: 2px dashed #000000;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
+}
+
+.square:active {
+    transform: scale(0.90);
+    transition: transform 0.4s;
+}
+
+.square::after {
+    content: 'Upload';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 5;
 }
 
 .square::before {
-    content: '+';
-    font-size: 48px;
-    color: #ccc;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+    z-index: 1;
+}
+
+.square:hover::before {
+    width: 200%;
+    height: 200%;
+}
+
+.square:hover::after {
+    opacity: 1;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.uploaded-photo-container {
+    margin-bottom: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.uploaded-photo-container.slide-up {
+    animation: slide-up 0.5s ease-out;
+}
+
+.uploaded-photo {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    object-fit: cover;
+    transition: opacity 0.3s;
+    border: none; /* Ensure no border is applied */
+}
+
+.uploaded-photo-container:hover .uploaded-photo {
+    opacity: 0.5;
+}
+
+.uploaded-photo-container::after {
+    content: 'Replace';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.uploaded-photo-container:hover::after {
+    opacity: 1;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.title-container {
+    opacity: 0;
+    animation: fade-in 0.5s ease-out 0.5s forwards;
 }
 
 .title {
     margin-top: 20px;
     font-size: 24px;
     color: #333;
+}
+
+.uploaded-photo-container video {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    object-fit: cover;
+    transition: opacity 0.3s;
+    border: none; /* Ensure no border is applied */
+}
+
+.delayed-appearance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: fade-in 0.5s ease-out 1s forwards; /* Delay the appearance by 1 second */
+}
+
+.fade-in {
+    animation: fade-in 1s ease-in-out;
 }

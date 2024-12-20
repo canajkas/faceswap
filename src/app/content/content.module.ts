@@ -4,27 +4,26 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LibraryComponent } from './library/library.component';
-import { UserComponent } from './user/user.component';
+import { CreditsComponent } from './credits/credits.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeComponent,
     AboutComponent,
+    CreditsComponent,
     LibraryComponent,
-    UserComponent,
     RouterModule.forChild([
       { path: '', component: HomeComponent },
       { path: 'about', component: AboutComponent },
       { path: 'library', component: LibraryComponent },
-      { path: 'user', component: UserComponent }
-    ])
+      { path: 'credits', component: CreditsComponent }
+      ])
   ],
   exports: [
     HomeComponent,
     AboutComponent,
-    LibraryComponent,
-    UserComponent
-  ]
+    LibraryComponent
+    ]
 })
 export class ContentModule { }
