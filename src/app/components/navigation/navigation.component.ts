@@ -10,4 +10,11 @@ import { RouterModule } from '@angular/router';
 })
 export class NavigationComponent {
   // Deine Logik hier
+
+  closeNavbar() {
+    const navbar = document.getElementById('navbarNav');
+    if (navbar && navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
 }
